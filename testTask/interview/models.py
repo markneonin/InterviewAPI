@@ -7,6 +7,10 @@ import django.contrib.postgres.fields as postgr
 class User(models.Model):
     user_id = models.IntegerField(primary_key=True)
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
 
 class Interview(models.Model):
     title = models.CharField(verbose_name='Имя опроса', max_length=256)
@@ -15,7 +19,8 @@ class Interview(models.Model):
     description = models.CharField(verbose_name='Описание опроса', max_length=4096, null=True)
 
     class Meta:
-        verbose_name_plural = "Опрос"
+        verbose_name = 'Опрос'
+        verbose_name_plural = 'Опросы'
 
     def __str__(self):
            return self.title
@@ -40,7 +45,8 @@ class Question(models.Model):
         return f"{self.title} ({qtype})"
 
     class Meta:
-        verbose_name_plural = "Вопрос"
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
 
 
 class Choice(models.Model):
@@ -51,23 +57,8 @@ class Choice(models.Model):
         return self.title
 
     class Meta:
-        verbose_name_plural = "Вариант ответа"
-
-
-# class TxtAnswer(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-#     text = models.CharField(verbose_name='Ответ пользователя', max_length=4096)
-#
-#     def __str__(self):
-#         return self.text
-#
-#
-# class SelectionAnswer(models.Model):
-#
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-#     choices = postgr.ArrayField(models.IntegerField(), max_length=15, default=list)
+        verbose_name = 'Вариант ответа'
+        verbose_name_plural = 'Варианты ответов'
 
 
 class InterviewAnswer(models.Model):
@@ -79,6 +70,10 @@ class InterviewAnswer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
     interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
     answer = postgr.JSONField(default=dict)
+
+    class Meta:
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'
 
 
 
