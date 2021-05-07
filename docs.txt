@@ -1,0 +1,120 @@
+Список доступных опросов:
+    URL: 'http://<host>/api/interview/'
+    METHOD: GET
+    RESPONSE BODY:
+    [
+    {
+        "id": 1,
+        "title": "Крутой Опрос",
+        "description": "Описание опроса"
+    } ...
+    ]
+
+
+Информация о конкретном опросе:
+    URL: 'http://<host>/api/interview/<interview_id>/'
+    METHOD: GET
+    RESPONSE BODY:
+    {
+    "interview": {
+        "id": 1,
+        "title": "Крутой Опрос",
+        "description": "Описание опроса"
+    },
+    "questions": [
+        {
+            "id": 1,
+            "q_type": 0,
+            "q_type_txt": "Текстовый ответ",
+            "title": "Вопрос1",
+            "lock_other": null,
+            "choices": null
+        },
+        {
+            "id": 2,
+            "q_type": 1,
+            "q_type_txt": "Выбор варианта/ов",
+            "title": "Вопрос2",
+            "lock_other": false,
+            "choices": [
+                {
+                    "id": 1,
+                    "title": "Вариант1",
+                    "question": 2
+                },
+                {
+                    "id": 2,
+                    "title": "Вариант2",
+                    "question": 2
+                }
+            ]
+        }
+    ]
+}
+
+
+Прохождение опроса:
+    URL: 'http://<host>/api/interview/complete/'
+    METHOD: POST
+    REQUEST BODY:
+    {
+    "user_id": 1,       # может быть null или отсутсвовать
+    "interview_id": 1,
+    "answer": {"txt_answers": [
+                                {"question": 1,
+                                "text": "Ответ"},
+                               ],
+               "selection_answers": [
+                                      {"question": 2,
+                                      "choices": [1,2]},
+
+                                     ]
+                                     },
+
+}
+
+
+Результаты прохождения пользователем:
+    URL: 'http://<host>/api/answers/<user_id>/'
+    METHOD: GET
+    RESPONSE BODY:
+    [
+    {
+        "user_id": 1,
+        "interview": {
+            "id": 1,
+            "title": "Крутой Опрос",
+            "description": "Описание опроса"
+        },
+        "answers": [
+            {
+                "id": 1,
+                "q_type": 0,
+                "q_type_txt": "Текстовый ответ",
+                "title": "Вопрос1",
+                "lock_other": null,
+                "choices": null,
+                "answer": "Ответ"
+            },
+            {
+                "id": 4,
+                "q_type": 1,
+                "q_type_txt": "Выбор варианта/ов",
+                "title": "Вопрос2",
+                "lock_other": false,
+                "choices": [
+                    {
+                        "id": 1,
+                        "title": "Вариант1",
+                        "question": 2
+                    },
+                    {
+                        "id": 2,
+                        "title": "Вариант2",
+                        "question": 2
+                    }
+                ]
+            }
+        ],
+    }
+]

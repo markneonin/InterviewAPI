@@ -1,0 +1,4 @@
+CREATE USER admin WITH PASSWORD 'roottoor';
+
+CREATE DATABASE testtaskdb;
+GRANT ALL PRIVILEGES ON DATABASE testtaskdb TO admin;
